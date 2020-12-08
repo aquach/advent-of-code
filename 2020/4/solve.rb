@@ -1,0 +1,1 @@
+File.readlines('input.txt')
