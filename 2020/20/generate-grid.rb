@@ -54,6 +54,26 @@ def search(placed, ids, tiles)
   if placed.length == D * D
     p ids
     p ids[0] * ids[D - 1] * ids.last * ids[-1 - (D - 1)]
+    grid = {}
+    (0..D-1).each do |row|
+      (0..D-1).each do |col|
+        (0..7).each do |tr|
+          (0..7).each do |tc|
+            grid[[ row * 8 + tr, col * 8 + tc]] = placed[[ row, col ]][tr + 1][tc + 1]
+          end
+        end
+      end
+    end
+
+    dd = ""
+    (0..95).each do |r|
+      (0..95).each do |c|
+        dd += grid[[r, c]]
+      end
+      dd += "\n"
+    end
+    File.write('grid.txt', dd)
+
     exit
   end
 
@@ -106,5 +126,6 @@ search(
     ([ t ] + rotates(t) + flips(t) + flips(t).flat_map { |r| [ rotate(r), rotate(rotate(r)), rotate(rotate(rotate(r))) ] }).uniq
   ]}.to_h#.slice(1951,2311,3079, 2729,1427,2473, 2971,1489,1171)
 )
+
 
 
